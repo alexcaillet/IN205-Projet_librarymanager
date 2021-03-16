@@ -1,6 +1,5 @@
 package ensta;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import java.time.LocalDate;
 
@@ -10,7 +9,7 @@ import com.ensta.librarymanager.modele.*;
 public class ModeleTest 
 {
     Membre membre = new Membre(3, "DUPONT", "Jacques", "17 rue de l'église, 91680 Bruyères-le-Châtel", "j.dupont@gmail.com", "0606060606", Abonnement.PREMIUM);
-    Livre livre = new Livre(2, "Eragon", "Auteur", "2-7654-1005-4");
+    Livre livre = new Livre(2, "Eragon", "Paolini", "2-7654-1005-4");
     Emprunt emprunt = new Emprunt(4, membre, livre, LocalDate.of(2021, 3, 9), LocalDate.of(2021, 3, 15));
 
     @Test
@@ -30,7 +29,7 @@ public class ModeleTest
     public void testLivre(){
         assertEquals(this.livre.getPrimaryKey(), 2);
         assertEquals(this.livre.getTitre(), "Eragon");
-        assertEquals(this.livre.getAuteur(), "Auteur");
+        assertEquals(this.livre.getAuteur(), "Paolini");
         assertEquals(this.livre.getISBN(), "2-7654-1005-4");
 
         System.out.println(this.livre.toString());

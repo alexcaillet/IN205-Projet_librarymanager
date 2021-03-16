@@ -1,6 +1,13 @@
-/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/modele/Abonnement.java
-/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/modele/Livre.java
-/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/modele/Membre.java
+/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/dao/EmpruntDao.java
+/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/modele/Membre.java
 /Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/utils/FillDatabase.java
+/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/modele/Emprunt.java
+/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/modele/Abonnement.java
 /Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/persistence/ConnectionManager.java
-/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/modele/Emprunt.java
+/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/exception/DaoException.java
+/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/dao/MembreDao.java
+/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/dao/MembreDaoImpl.java
+/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/dao/LivreDaoImpl.java
+/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/dao/EmpruntDaoImpl.java
+/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/dao/LivreDao.java
+/Users/alexandre/Documents/ENSTA/2A/IN205/IN205-Projet_librarymanager/Projet2/src/main/java/com/ensta/librarymanager/modele/Livre.java
