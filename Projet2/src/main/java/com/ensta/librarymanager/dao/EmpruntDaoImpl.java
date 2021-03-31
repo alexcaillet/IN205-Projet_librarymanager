@@ -1,6 +1,7 @@
 package com.ensta.librarymanager.dao;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,10 @@ public class EmpruntDaoImpl implements EmpruntDao {
                 emprunt.setLivre(livre);
                 emprunt.setMembre(membre);
                 emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
-                emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
+                if(rs.getDate("dateRetour")!=null){
+                    emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
+                }
+                
                 result.add(emprunt);
             }
             return result;
@@ -78,7 +82,6 @@ public class EmpruntDaoImpl implements EmpruntDao {
                 emprunt.setLivre(livre);
                 emprunt.setMembre(membre);
                 emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
-                emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
                 result.add(emprunt);
             }
             return result;
@@ -105,7 +108,9 @@ public class EmpruntDaoImpl implements EmpruntDao {
                 emprunt.setLivre(livre);
                 emprunt.setMembre(membre);
                 emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
-                emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
+                if(rs.getDate("dateRetour") != null){
+                    emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
+                }
                 result.add(emprunt);
             }
             return result;
@@ -132,7 +137,9 @@ public class EmpruntDaoImpl implements EmpruntDao {
                 emprunt.setLivre(livre);
                 emprunt.setMembre(membre);
                 emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
-                emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
+                if(rs.getDate("dateRetour") != null){
+                    emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
+                }
                 result.add(emprunt);
             }
             return result;
@@ -142,27 +149,32 @@ public class EmpruntDaoImpl implements EmpruntDao {
     }
 
     public Emprunt getById(int id) throws DaoException{
+        Emprunt emprunt = new Emprunt();
+        Membre membre = new Membre();
+        Livre livre = new Livre();
         try{
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement insertPreparedStatement = null;
             insertPreparedStatement = connection.prepareStatement(this.getById);
             insertPreparedStatement.setInt(1, id);
             ResultSet rs = insertPreparedStatement.executeQuery();
-            insertPreparedStatement.close();
-            Emprunt emprunt = new Emprunt();
-            Membre membre = new Membre(rs.getInt("idMembre"), rs.getString("nom"), rs.getString("prenom"),
+            if(rs.next()){
+                membre = new Membre(rs.getInt("idMembre"), rs.getString("nom"), rs.getString("prenom"),
                         rs.getString("adresse"), rs.getString("email"), rs.getString("telephone"),
                         Abonnement.valueOf(rs.getString("abonnement")));
-            Livre livre = new Livre(rs.getInt("idLivre"), rs.getString("titre"), rs.getString("auteur"),
-            rs.getString("isbn"));
-            emprunt.setPrimaryKey(rs.getInt("id"));
-            emprunt.setLivre(livre);
-            emprunt.setMembre(membre);
-            emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
-            emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
+                livre = new Livre(rs.getInt("idLivre"), rs.getString("titre"), rs.getString("auteur"),rs.getString("isbn"));
+                emprunt.setPrimaryKey(rs.getInt("id"));
+                emprunt.setLivre(livre);
+                emprunt.setMembre(membre);
+                emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
+                emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
+            }
+            insertPreparedStatement.close();
+
             return emprunt;
         }
         catch (SQLException e){
+            System.out.println(e.getMessage());
             throw new DaoException("Impossible de trouver l'emprunt id = " + id);
         }
     }
@@ -173,10 +185,12 @@ public class EmpruntDaoImpl implements EmpruntDao {
             PreparedStatement insertPreparedStatement = connection.prepareStatement(this.create);
             insertPreparedStatement.setInt(1, idMembre);
             insertPreparedStatement.setInt(2, idLivre);
-            insertPreparedStatement.setString(3, dateEmprunt.toString());
+            insertPreparedStatement.setDate(3, java.sql.Date.valueOf(dateEmprunt));
+            insertPreparedStatement.setDate(4, null);
             insertPreparedStatement.executeUpdate();
             insertPreparedStatement.close();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new DaoException("Impossible de créer l'emprunt dans la table");
         }
     }

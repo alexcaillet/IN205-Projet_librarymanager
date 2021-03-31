@@ -52,45 +52,51 @@ public class MembreDaoImpl implements MembreDao {
     }
 
     public Membre getById(int id) throws DaoException {
+        Membre membre = new Membre();
         try {
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement insertPreparedStatement = null;
             insertPreparedStatement = connection.prepareStatement(this.getById);
             insertPreparedStatement.setInt(1, id);
             ResultSet rs = insertPreparedStatement.executeQuery();
-            insertPreparedStatement.close();
-            Membre membre = new Membre(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"),
+
+            if (rs.next()){
+                membre = new Membre(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"),
                     rs.getString("adresse"), rs.getString("email"), rs.getString("telephone"),
                     Abonnement.valueOf(rs.getString("abonnement")));
-            return membre;
-        } catch (Exception e) {
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new DaoException("Impossible de trouver le membre d'id = " + id);
         }
+        return membre;
     }
 
     public int create(String nom, String prenom, String adresse, String email, String telephone) throws DaoException {
+        int id;
         try {
             Connection connection = ConnectionManager.getConnection();
-            PreparedStatement insertPreparedStatement = connection.prepareStatement(this.create,
-                    PreparedStatement.RETURN_GENERATED_KEYS);
+            PreparedStatement insertPreparedStatement = connection.prepareStatement(this.create,PreparedStatement.RETURN_GENERATED_KEYS);
             insertPreparedStatement.setString(1, nom);
             insertPreparedStatement.setString(2, prenom);
             insertPreparedStatement.setString(3, adresse);
             insertPreparedStatement.setString(4, email);
             insertPreparedStatement.setString(5, telephone);
+            insertPreparedStatement.setString(6, Abonnement.BASIC.toString());
             insertPreparedStatement.executeUpdate();
             ResultSet resultSet = insertPreparedStatement.getGeneratedKeys();
-            insertPreparedStatement.close();
             if (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                return id;
+                id = resultSet.getInt(1);
             } else {
-                return -1;
+                id = -1;
             }
+            insertPreparedStatement.close();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new DaoException("Impossible d'insérer le membre dans la table");
         }
-
+        return id;
     }
 
     public void update(Membre membre) throws DaoException {

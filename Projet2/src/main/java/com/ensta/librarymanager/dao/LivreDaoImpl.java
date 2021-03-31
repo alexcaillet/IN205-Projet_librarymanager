@@ -45,27 +45,33 @@ public class LivreDaoImpl implements LivreDao {
             }
             return result;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new DaoException("Imposssible de récupérer la liste des membres");
         }
     }
 
     public Livre getById(int id) throws DaoException {
+        Livre livre = new Livre();
         try {
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement insertPreparedStatement = null;
             insertPreparedStatement = connection.prepareStatement(this.getById);
             insertPreparedStatement.setInt(1, id);
             ResultSet rs = insertPreparedStatement.executeQuery();
-            insertPreparedStatement.close();
-            Livre livre = new Livre(rs.getInt("id"), rs.getString("titre"), rs.getString("auteur"),
+            if (rs.next()){
+                livre = new Livre(rs.getInt("id"), rs.getString("titre"), rs.getString("auteur"),
                     rs.getString("isbn"));
+            }
+            insertPreparedStatement.close();
             return livre;
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new DaoException("Impossible de récupérer le livre d'id = " + id);
         }
     }
 
     public int create(String titre, String auteur, String isbn) throws DaoException {
+        int id = -1;
         try {
             Connection connection = ConnectionManager.getConnection();
             PreparedStatement insertPreparedStatement = connection.prepareStatement(this.create,
@@ -75,16 +81,15 @@ public class LivreDaoImpl implements LivreDao {
             insertPreparedStatement.setString(3, isbn);
             insertPreparedStatement.executeUpdate();
             ResultSet resultSet = insertPreparedStatement.getGeneratedKeys();
-            insertPreparedStatement.close();
             if (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                return id;
-            } else {
-                return -1;
+                id = resultSet.getInt(1);
             }
+            insertPreparedStatement.close();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new DaoException("Impossible d'insérer le livre dans la table");
         }
+        return id;
     }
 
     public void update(Livre livre) throws DaoException {
@@ -99,6 +104,7 @@ public class LivreDaoImpl implements LivreDao {
             insertPreparedStatement.executeUpdate();
             insertPreparedStatement.close();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new DaoException("Impossible d'actualiser le livre d'id = " + livre.getPrimaryKey());
         }
     }
@@ -111,6 +117,7 @@ public class LivreDaoImpl implements LivreDao {
             insertPreparedStatement.executeUpdate();
             insertPreparedStatement.close();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new DaoException("Impossible de supprimer le livre d'ID = " + id);
         }
     }

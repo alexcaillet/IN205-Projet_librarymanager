@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ensta.AppTest" time="0.001" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="ensta.ServiceTest" time="0.012" tests="2" errors="1" skipped="0" failures="1">
   <properties>
     <property name="java.specification.version" value="15"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -50,5 +50,16 @@
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="java.class.version" value="59.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="ensta.AppTest" time="0"/>
+  <testcase name="testMembreService" classname="ensta.ServiceTest" time="0.012">
+    <failure message="expected:&lt;Membre [id = 19, nom = Dupont, prenom = Jacques, adresse = Paris, email = email@ensta.fr, telephone = 0789898989, abonnement = BASIC]&gt; but was:&lt;Membre [id = 19, nom = DUPONT, prenom = Jacques, adresse = Paris, email = email@ensta.fr, telephone = 0789898989, abonnement = null]&gt;" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: expected:<Membre [id = 19, nom = Dupont, prenom = Jacques, adresse = Paris, email = email@ensta.fr, telephone = 0789898989, abonnement = BASIC]> but was:<Membre [id = 19, nom = DUPONT, prenom = Jacques, adresse = Paris, email = email@ensta.fr, telephone = 0789898989, abonnement = null]>
+	at ensta.ServiceTest.testMembreService(ServiceTest.java:40)
+]]></failure>
+    <system-out><![CDATA[[Membre [id = 6, nom = BALTHAZAR, prenom = Raphaël, adresse = 42 rue du Clair Bocage, email = rbalthazar@email.com, telephone = 0654821968, abonnement = PREMIUM], Membre [id = 12, nom = CASSANDRE, prenom = Florence, adresse = 63 rue Joseph Vernet, email = fcassandre@email.com, telephone = 0721137437, abonnement = BASIC], Membre [id = 11, nom = CAÏN, prenom = Frédéric, adresse = 43 route de Lyon, email = fcain@email.com, telephone = 0629831280, abonnement = BASIC], Membre [id = 7, nom = CHASSAGNE, prenom = Florence, adresse = 28 rue Michel Ange, email = fchassagne@email.com, telephone = 0154829537, abonnement = VIP], Membre [id = 1, nom = CHERIF, prenom = Kader, adresse = 2 rue Sadi Carnot, email = kcherif@email.com, telephone = 0243585672, abonnement = PREMIUM], Membre [id = 9, nom = LEBOWITZ, prenom = Paule, adresse = 75 avenue Jean Portalis, email = plebowitz@email.com, telephone = 0165483283, abonnement = BASIC], Membre [id = 4, nom = MAGELLAN, prenom = Simon, adresse = 48 rue du Château, email = smagellan@email.com, telephone = 0423496545, abonnement = BASIC], Membre [id = 5, nom = MARLEAU, prenom = Sylvie, adresse = 20 rue de l'Aigle, email = smarleau@email.com, telephone = , abonnement = BASIC], Membre [id = 2, nom = MONGEVILLE, prenom = Antoine, adresse = 8 rue Frédéric Chopin, email = amongeville@email.com, telephone = 0426813579, abonnement = VIP], Membre [id = 10, nom = MUNCHOWSKI, prenom = Gabrielle, adresse = 92 rue Gustave Eiffel, email = gmunchowski@email.com, telephone = 0157499347, abonnement = PREMIUM], Membre [id = 3, nom = RENOIR, prenom = Candice, adresse = 26 rue de l'Epeule, email = crenoir@email.com, telephone = 0485724694, abonnement = BASIC], Membre [id = 8, nom = WEISS, prenom = Lauren, adresse = 49 rue St Ferréol, email = lweiss@email.com, telephone = 0349302501, abonnement = PREMIUM]]
+]]></system-out>
+  </testcase>
+  <testcase name="testEmpruntService" classname="ensta.ServiceTest" time="0">
+    <error message="Cannot invoke &quot;java.time.LocalDate.toString()&quot; because &quot;this.dateRetour&quot; is null" type="java.lang.NullPointerException">java.lang.NullPointerException: Cannot invoke "java.time.LocalDate.toString()" because "this.dateRetour" is null
+	at ensta.ServiceTest.testEmpruntService(ServiceTest.java:25)
+</error>
+  </testcase>
 </testsuite>
