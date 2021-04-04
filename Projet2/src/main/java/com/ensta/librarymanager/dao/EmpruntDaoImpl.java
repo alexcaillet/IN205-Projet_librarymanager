@@ -56,9 +56,9 @@ public class EmpruntDaoImpl implements EmpruntDao {
                 if(rs.getDate("dateRetour")!=null){
                     emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
                 }
-                
                 result.add(emprunt);
             }
+            preparedStatement.close();
             return result;
         } catch (SQLException e) {
             throw new DaoException("Imposssible de récupérer la liste des emprunts");
@@ -72,38 +72,42 @@ public class EmpruntDaoImpl implements EmpruntDao {
             PreparedStatement preparedStatement = conn.prepareStatement(this.getCur);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Emprunt emprunt = new Emprunt();
                 Membre membre = new Membre(rs.getInt("idMembre"), rs.getString("nom"), rs.getString("prenom"),
                         rs.getString("adresse"), rs.getString("email"), rs.getString("telephone"),
                         Abonnement.valueOf(rs.getString("abonnement")));
                 Livre livre = new Livre(rs.getInt("idLivre"), rs.getString("titre"), rs.getString("auteur"),
                         rs.getString("isbn"));
+                Emprunt emprunt = new Emprunt();
                 emprunt.setPrimaryKey(rs.getInt("id"));
                 emprunt.setLivre(livre);
                 emprunt.setMembre(membre);
                 emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
                 result.add(emprunt);
             }
-            return result;
+            preparedStatement.close();
+            
         } catch (SQLException e) {
             throw new DaoException("Imposssible de récupérer la liste des emprunts courants");
         }
+        return result;
     }
 
     public List<Emprunt> getListCurrentByMembre(int idMembre) throws DaoException {
         List<Emprunt> result = new ArrayList<>();
+        
+
         try {
             Connection conn = ConnectionManager.getConnection();
             PreparedStatement preparedStatement = conn.prepareStatement(this.getByMember);
             preparedStatement.setInt(1, idMembre);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Emprunt emprunt = new Emprunt();
                 Membre membre = new Membre(rs.getInt("idMembre"), rs.getString("nom"), rs.getString("prenom"),
                         rs.getString("adresse"), rs.getString("email"), rs.getString("telephone"),
                         Abonnement.valueOf(rs.getString("abonnement")));
                 Livre livre = new Livre(rs.getInt("idLivre"), rs.getString("titre"), rs.getString("auteur"),
                         rs.getString("isbn"));
+                Emprunt emprunt = new Emprunt();
                 emprunt.setPrimaryKey(rs.getInt("id"));
                 emprunt.setLivre(livre);
                 emprunt.setMembre(membre);
@@ -113,10 +117,12 @@ public class EmpruntDaoImpl implements EmpruntDao {
                 }
                 result.add(emprunt);
             }
-            return result;
+            preparedStatement.close();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             throw new DaoException("Imposssible de récupérer la liste des emprunts du membre id = " + idMembre);
         }
+        return result;
     }
 
     public List<Emprunt> getListCurrentByLivre(int idLivre) throws DaoException{
@@ -142,6 +148,7 @@ public class EmpruntDaoImpl implements EmpruntDao {
                 }
                 result.add(emprunt);
             }
+            preparedStatement.close();
             return result;
         } catch (SQLException e) {
             throw new DaoException("Imposssible de récupérer la liste des emprunts faits du livre id = " + idLivre);
@@ -167,7 +174,9 @@ public class EmpruntDaoImpl implements EmpruntDao {
                 emprunt.setLivre(livre);
                 emprunt.setMembre(membre);
                 emprunt.setDateEmprunt(rs.getDate("dateEmprunt").toLocalDate());
-                emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
+                if(rs.getDate("dateRetour")!=null){
+                    emprunt.setDateRetour(rs.getDate("dateRetour").toLocalDate());
+                }
             }
             insertPreparedStatement.close();
 

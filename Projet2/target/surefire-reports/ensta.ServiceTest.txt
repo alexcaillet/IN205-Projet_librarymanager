@@ -1,12 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: ensta.ServiceTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 1, Errors: 1, Skipped: 0, Time elapsed: 0.012 s <<< FAILURE! - in ensta.ServiceTest
-testMembreService(ensta.ServiceTest)  Time elapsed: 0.012 s  <<< FAILURE!
-java.lang.AssertionError: expected:<Membre [id = 19, nom = Dupont, prenom = Jacques, adresse = Paris, email = email@ensta.fr, telephone = 0789898989, abonnement = BASIC]> but was:<Membre [id = 19, nom = DUPONT, prenom = Jacques, adresse = Paris, email = email@ensta.fr, telephone = 0789898989, abonnement = null]>
-	at ensta.ServiceTest.testMembreService(ServiceTest.java:40)
-
-testEmpruntService(ensta.ServiceTest)  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.time.LocalDate.toString()" because "this.dateRetour" is null
-	at ensta.ServiceTest.testEmpruntService(ServiceTest.java:25)
-
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.105 s - in ensta.ServiceTest

@@ -82,7 +82,7 @@ public class DaoTest {
             System.out.println(e.getMessage());
         }
         assertEquals(emprunts.size(), count);
-        System.out.println(emprunts.size());
+        System.out.println("Nombre d'emprunts dans la base de données : " + emprunts.size());
 
         try{
             emprunts = empruntDao.getListCurrent();
@@ -90,11 +90,14 @@ public class DaoTest {
             assertEquals(count+1, empruntDao.count());
             emprunts = empruntDao.getListCurrentByLivre(5);
             emprunt = emprunts.get(emprunts.size()-1);
+            List<Emprunt> emprunts_membre = empruntDao.getListCurrentByMembre(emprunt.getMembre().getPrimaryKey());
+            System.out.println("nombre d'emprunts du membre " + emprunt.getMembre().getPrimaryKey() + " : " + emprunts_membre.size());
+            assertEquals(emprunts_membre.get(emprunts_membre.size()-1).getLivre().getAuteur(), emprunt.getLivre().getAuteur());
+
             emprunt.setDateRetour(LocalDate.of(2021, 03, 25));
             empruntDao.update(emprunt);
             emprunt = empruntDao.getById(emprunt.getPrimaryKey());
-            List<Emprunt> emprunts_membre = empruntDao.getListCurrentByMembre(emprunt.getMembre().getPrimaryKey());
-            assertEquals(emprunts_membre.get(emprunts_membre.size()-1).getLivre().getAuteur(), emprunt.getLivre().getAuteur());
+            
             assertEquals(LocalDate.of(2021, 03, 25), emprunt.getDateRetour());
             assertEquals(LocalDate.of(2021, 03, 15), emprunt.getDateEmprunt());
         }
