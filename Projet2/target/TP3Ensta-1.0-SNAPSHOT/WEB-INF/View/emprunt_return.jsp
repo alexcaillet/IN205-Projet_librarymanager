@@ -31,7 +31,7 @@
                   <!-- TODO : parcourir la liste des emprunts non rendus et afficher autant d'options que n�cessaire, sur la base de l'exemple ci-dessous -->
                   <!-- TODO : si l'attribut id existe, l'option correspondante devra �tre s�lectionn�e par d�faut (ajouter l'attribut selected dans la balise <option>) -->
                   <c:forEach items="${emprunts_cur}" var="emprunt">
-                    <option value="${emprunt.getPrimaryKey()}"><c:out value="${emprunt.getLivre().getTitre()}"></c:out>, <c:out value="${emprunt.getMembre().getNom()}"></c:out> <c:out value="${emprunt.getMembre().getPrenom()}"></c:out></option>
+                    <option value="${emprunt.getPrimaryKey()}" ${(id == emprunt.getPrimaryKey()) ? " selected" : ""}><c:out value="${emprunt.getLivre().getTitre()}"></c:out>, <c:out value="${emprunt.getMembre().getNom()}"></c:out> <c:out value="${emprunt.getMembre().getPrenom()}"></c:out> </option>
                   </c:forEach>
                   <!--<option value="idDeLEmprunt">"Titre du livre", emprunt� par Pr�nom et nom du membre emprunteur</option>-->
 	            </select>

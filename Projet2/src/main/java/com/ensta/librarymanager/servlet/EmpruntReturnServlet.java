@@ -18,11 +18,15 @@ import com.ensta.librarymanager.modele.*;
 public class EmpruntReturnServlet extends HttpServlet {
 
 	EmpruntService empruntService = EmpruntServiceImpl.getInstance();
+	int preselected_id;
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/View/emprunt_return.jsp");
 		try{
+			//On récupère l'id préselectionné du livre s'il existe
+			this.preselected_id = Integer.valueOf(request.getParameter("id"));
+			request.setAttribute("id", this.preselected_id);
 			request.setAttribute("emprunts_cur", empruntService.getListCurrent());
 		} catch(ServiceException e){
 			System.out.println(e.getMessage());

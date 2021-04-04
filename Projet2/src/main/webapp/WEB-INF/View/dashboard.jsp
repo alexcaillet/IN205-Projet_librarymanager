@@ -87,7 +87,7 @@
                         <td><c:out value="${emprunt.getMembre().getNom()}"></c:out> <c:out value="${emprunt.getMembre().getPrenom()}"></c:out></td>
                         <td><c:out value="${emprunt.getDateEmprunt()}"></c:out></td>
                         <td>
-                            <a href="emprunt_return?id=idDeLEmprunt"><ion-icon class="table-item" name="log-in"></a>
+                            <a href="emprunt_return?id=${emprunt.getPrimaryKey()}"><ion-icon class="table-item" name="log-in"></a>
                         </td>
                       </tr>
                     </c:forEach>

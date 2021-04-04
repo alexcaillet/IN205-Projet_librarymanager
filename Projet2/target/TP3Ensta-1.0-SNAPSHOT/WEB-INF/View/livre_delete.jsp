@@ -30,7 +30,7 @@
 	          <button class="btn waves-effect waves-light red" type="submit">Supprimer
 	            <i class="material-icons right">delete</i>
 	          </button>
-	          <a class="btn waves-effect waves-light orange" href="/LibraryManager/livre_details?id=${id}">Annuler</a> <!-- TODO : remplacer idDuLivre par l'id du livre -->
+	          <a class="btn waves-effect waves-light orange" href="/TP3Ensta/livre_details?id=${id}">Annuler</a> <!-- TODO : remplacer idDuLivre par l'id du livre -->
 	        </div>
 	      </form>
 	    </div>	    

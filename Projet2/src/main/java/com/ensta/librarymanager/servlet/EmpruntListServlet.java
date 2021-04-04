@@ -25,7 +25,14 @@ public class EmpruntListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/View/emprunt_list.jsp");
 		try{
-			request.setAttribute("emprunts", empruntService.getList());
+			String show = request.getParameter("show");
+			if(show!=null && show.equals("all")){
+				request.setAttribute("emprunts", empruntService.getList());
+			}
+			else{
+				request.setAttribute("emprunts", empruntService.getListCurrent());
+			}
+			
 		}
 		catch(ServiceException e){
 			System.out.println(e.getMessage());
